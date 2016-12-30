@@ -1,11 +1,10 @@
 #!/usr/bin/env python 
 import httplib, urllib, base64
-import sys
 
 file = open('../api-key.txt','r')
 key = file.read().strip()
 file.close()
-personGroupId = str(sys.argv[1])
+personGroupId = "recognized"
 
 headers = {
     # Request headers
@@ -14,11 +13,11 @@ headers = {
 }
 
 params = urllib.urlencode({
-    'personGroupId':str(personGroupId)
+    'personGroupId':personGroupId
 })
 
 body = {
-    'name':str(personGroupId)
+    'name':personGroupId
 }
 
 conn = httplib.HTTPSConnection('api.projectoxford.ai')

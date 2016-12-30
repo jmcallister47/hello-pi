@@ -1,6 +1,7 @@
 #!/usr/bin/env python 
+'''Name as argument. Ex. ./create-person.py "John Doe"'''
 import httplib, urllib, base64
-import sys
+import sys, json, ast
 
 file = open('../api-key.txt')
 key = file.read().strip()
@@ -18,17 +19,14 @@ body = {
     "name":str(sys.argv[1]),
 }
 
-try:
-    conn = httplib.HTTPSConnection('api.projectoxford.ai')
-    conn.request("POST", "/face/v1.0/persongroups/recognized/persons?%s" % params, str(body), headers)
-    response = conn.getresponse()
-    data = response.read()
-    dataFile = open('../people.txt',a)
-    dataFile.write("Name: " + str(sys.argv[1]))
-    print(type(data))
-    print(data)
-    dataFile.write(data)
-    dataFile.close()
-    conn.close()
-except Exception as e:
-    print("[Errno {0}] {1}".format(e.errno, e.strerror))
+conn = httplib.HTTPSConnection('api.projectoxford.ai')
+conn.request("POST", "/face/v1.0/persongroups/recognized/persons?%s" % params, str(body), headers)
+response = conn.getresponse()
+data = response.read()
+data = ast.literal_eval(data)
+print(data)
+jsonData = json.loads(urllib.urlopen('../people.json').read())
+jsonData['list'].append({sys.argv[1]:data["personId"]}) #name:id
+jsonFile = open('../people.json','w')
+jsonFile.write(json.dumps(jsonData))
+conn.close()
