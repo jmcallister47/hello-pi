@@ -1,5 +1,4 @@
-
-########### Python 2.7 #############
+#!/usr/bin/env python 
 import httplib, urllib, base64
 import sys
 
