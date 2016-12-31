@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 import httplib, urllib, base64
-
-file = open('../api-key.txt')
+import sys
+file = open('api-key.txt')
 key = file.read().strip()
 print "_" + key + "_"
 headers = {
@@ -17,10 +17,13 @@ params = urllib.urlencode({
     'returnFaceAttributes': 'age',
 })
 
-body = {
+'''body = {
     "url":"http://pravinsivabalan.me/assets/img/profiles/prof-mobi.jpg",
+}'''
+body = {
+    "url":str(sys.argv[1])
 }
-
+print body
 try:
     conn = httplib.HTTPSConnection('api.projectoxford.ai')
     conn.request("POST", "/face/v1.0/detect?%s" % params,str(body), headers)

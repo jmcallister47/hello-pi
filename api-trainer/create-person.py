@@ -3,7 +3,7 @@
 import httplib, urllib, base64
 import sys, json, ast
 
-file = open('../api-key.txt')
+file = open('api-key.txt')
 key = file.read().strip()
 
 headers = {
@@ -25,8 +25,9 @@ response = conn.getresponse()
 data = response.read()
 data = ast.literal_eval(data)
 print(data)
-jsonData = json.loads(urllib.urlopen('../people.json').read())
-jsonData['list'].append({sys.argv[1]:data["personId"]}) #name:id
-jsonFile = open('../people.json','w')
+jsonData = json.loads(urllib.urlopen('people.json').read())
+#jsonData['recognized'].append({sys.argv[1]:data["personId"]}) #name:id
+jsonData['recognized'][sys.argv[1]] = data["personId"]
+jsonFile = open('people.json','w')
 jsonFile.write(json.dumps(jsonData))
 conn.close()

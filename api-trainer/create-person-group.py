@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 import httplib, urllib, base64
 
-file = open('../api-key.txt','r')
+file = open('api-key.txt','r')
 key = file.read().strip()
 file.close()
 personGroupId = "recognized"
