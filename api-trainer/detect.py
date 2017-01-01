@@ -17,9 +17,6 @@ params = urllib.urlencode({
     'returnFaceAttributes': 'age',
 })
 
-'''body = {
-    "url":"http://pravinsivabalan.me/assets/img/profiles/prof-mobi.jpg",
-}'''
 body = {
     "url":str(sys.argv[1])
 }
