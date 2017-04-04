@@ -2,7 +2,7 @@
 import httplib, urllib, base64
 import sys, json
 
-file = open('api-key.txt')
+file = open('~/hello-pi/api-trainer/api-key.txt')
 key = file.read().strip()
 
 def main():
@@ -18,7 +18,7 @@ def main():
         for key, value in peopleJsonData['recognized'].items():
             if(value == personId):
                 peopleNames.append(key)
-    
+    print peopleNames    
 
 def detect():
     headers = {
